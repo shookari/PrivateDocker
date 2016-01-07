@@ -1,0 +1,32 @@
+FROM centos:7
+MAINTAINER ikros <ikros@telcoware.com>
+
+# Install need package
+RUN yum install -y vim tar openssh-clients
+RUN yum install -y tar gcc gcc-c++ make wget
+RUN yum install -y openssl-devel # need MCPAN when perl module install
+
+
+# setting mysql4 
+ENV MYSQL_UNIX_PORT=/tmp/mysql_bug.sock
+ENV MYSQL_HOME=/var/lib/mysql4
+ENV MYSQL_CONF=/var/lib/mysql4/etc/my.cnf
+ENV MYSQL_DATA=/var/lib/mysql4/data
+
+ADD ./tar/mysql4.tar /var/lib
+COPY mysql_script /root/mysql_script
+RUN echo 'source /root/mysql_script/bugs_mysql_bash' >> $HOME/.bashrc
+RUN /root/mysql_script/mysql_setting.sh
+
+# setting httpd 
+RUN yum install -y httpd 
+RUN yum install -y perl perl-CPAN perl-YAML
+
+COPY httpd_script /root/httpd_script 
+RUN \cp /root/httpd_script/httpd.conf.mds2 /etc/httpd/conf/httpd.conf
+#RUN /root/httpd_script/httpd_setting.sh
+
+# set system date
+RUN ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime
+
+EXPOSE 80

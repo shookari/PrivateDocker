@@ -1,0 +1,6 @@
+# Bugzilra recovery data(2015-12-30)
+# 
+# env : config docker image, container
+# start_bugzilra.sh : generate container, start httpd, mysql4  
+# stop_bugzilra.sh : stop container, remove container 
+

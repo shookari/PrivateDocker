@@ -1,0 +1,8 @@
+# centos7 + httpd + mysql4  TODO : write to README
+TEMPLATE_IMAGE="bugtemplate1.0"
+TEMPLATE_CONTAINER="recover"c
+IMAGE="bugz"
+HOSTNAME="bug_recover"
+CONTAINER="bugz"c
+HOSTIP="172.17.0.3"
+BKUP_DATA="./data/bugs.20151230.tar.gz"

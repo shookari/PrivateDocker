@@ -1,0 +1,45 @@
+# Bugzilra template information
+# Base Image : bugtemplate1.0 
+#  - DB : mysql4
+#  - WAS: httpd 
+#  - ETC: perl module (bugzilra)
+#  
+#  1. Installed package
+#  RUN yum install -y vim tar openssh-clients
+#  RUN yum install -y tar gcc gcc-c++ make wget
+#  RUN yum install -y openssl-devel 
+#
+#  2. mysql4 information
+#  MYSQL_UNIX_PORT=/tmp/mysql_bug.sock
+#  MYSQL_HOME=/var/lib/mysql4
+#  MYSQL_CONF=/var/lib/mysql4/etc/my.cnf
+#  MYSQL_DATA=/var/lib/mysql4/data
+#
+#  3. httpd install 
+#  RUN yum install -y httpd 
+#  RUN yum install -y perl perl-CPAN perl-YAML
+#
+#  4. perl module installed 
+#   - CPAN auto install
+#  perl -MCPAN -e 'install "DBI"¡¯ 
+#  perl -MCPAN -e 'install "Date::Parse¡±¡¯
+#  perl -MCPAN -e 'install "CGI::Carp"'
+#  perl -MCPAN -e 'install "Template"'
+#  perl -MCPAN  -e 'install "URI:Escape"'
+#
+#   - Manual install "DBD::mysql"' 
+#  (reason : dbdimp.c:3774: structure has no member named `error')
+#  ---------------------------------------------------------------------
+#   => modify dbdimp.c 
+#   +#if MYSQL_VERSION_ID >= NEW_DATATYPE_VERSION
+#          buffer->error= (my_bool*) &(fbh->error);
+#   +#endif
+#  ---------------------------------------------------------------------
+#  perl Makefile.PL , make, make test , make install
+#
+#  * env : the file for the set value for use in running script(recover.sh, docker_run.sh). 
+#  * docker_run.sh : Use the docker template image and the recovered data to generate a new bugzilra image. 
+#  * recover.sh: initialize the mysql, and recover the data from backup data and page.
+#  NOTE : you must copy backup file (bugs.*.tar.gz) to path before running recover.sh.    
+#  * start_bugzilra.sh : generate docker container from created image, and start bugzilra service.
+#  * stop_bugzilra.sh  : stop and remove  docker container.

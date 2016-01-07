@@ -1,0 +1,11 @@
+#!/bin/bash
+# -- mysql stop script
+
+ps -ef | grep -v grep | grep mysqld
+echo "kill mysqld process"
+read check
+
+if [ $check == 'Y' or $check == 'y' ] ; then
+	ps -ef | grep -v grep | grep mysqld | awk '{print $2}' | xargs kill -9
+fi
+

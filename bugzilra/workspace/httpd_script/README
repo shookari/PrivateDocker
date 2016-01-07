@@ -1,0 +1,25 @@
+Bugzilra using mysql perl module
+
+perl 5.16.3 not install by auto(cpan).
+ - perl -MCPAN -e 'install "DBD::mysql"'
+
+
+DBD-mysql-4.033.tar.gz maual install
+# -------------------------------------------------------------------
+- diff -ru DBD-mysql-4.032/dbdimp.c DBD-mysql-4.032.new/dbdimp.c
+--- DBD-mysql-4.032/dbdimp.c   Mon Jun 15 10:43:03 2015
++++ DBD-mysql-4.032.new/dbdimp.c   Tue Aug 18 18:28:32 2015
+@@ -3771,7 +3771,9 @@
+col_type);
+buffer->length= &(fbh->length);
+buffer->is_null= (my_bool*) &(fbh->is_null);
++#if MYSQL_VERSION_ID >= NEW_DATATYPE_VERSION
+buffer->error= (my_bool*) &(fbh->error);
++#endif
+# -------------------------------------------------------------------
+
+perl Makefile.PL
+make 
+make test
+make install
+

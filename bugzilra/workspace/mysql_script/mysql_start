@@ -1,0 +1,6 @@
+#!/bin/bash
+
+MYSQL_HOME=/var/lib/mysql4
+MYSQL_CONF=/var/lib/mysql4/etc/my.cnf
+
+$MYSQL_HOME/bin/mysqld_safe --defaults-file=$MYSQL_CONF &

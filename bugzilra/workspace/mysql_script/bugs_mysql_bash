@@ -1,0 +1,12 @@
+#----------------- Bugzilra ------------------------#
+export LANG=ko_KR.euckr
+export LD_RUN_PATH=/usr/local/lib
+
+#----------------- MySQL ------------------------#
+export MYSQL_UNIX_PORT=/tmp/mysql_bug.sock
+export MYSQL_HOME=/var/lib/mysql4
+export MYSQL_CONF=/var/lib/mysql4/etc/my.cnf
+export MYSQL_DATA=/var/lib/mysql4/data
+export PATH=$MYSQL_HOME/bin:$PATH
+export LD_LIBRARY_PATH=$MYSQL_HOME/lib:/usr/local/lib:$LD_LIBRARY_PATH
+
